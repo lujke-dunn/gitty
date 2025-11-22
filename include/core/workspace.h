@@ -12,6 +12,8 @@ class Workspace {
   private:
     fs::path pathname; 
 
+    std::vector<fs::path> listFilesRecursively(const fs::path& dir) const;
+
   public:
     explicit Workspace(const fs::path& path);
 

@@ -5,28 +5,50 @@
 
 Workspace::Workspace(const fs::path& path) : pathname(path) {}
 
-std::vector<std::string> Workspace::listFiles() const {
-  std::vector<std::string> files; 
-  
-  // TODO: make it so that this explores subdirectories 
-  for (const auto& entry : fs::directory_iterator(pathname)) {
-    if (!entry.is_regular_file()) { 
-      continue; // FIXME: skipping directories as of right now
-    }
-    
-    std::string filename = entry.path().filename().string(); 
+std::vector<fs::path> Workspace::listFilesRecursively(const fs::path& dir) const {
+  std::vector<fs::path> files; 
 
-    // Ignore .git and hidden files per git spec 
-    if (filename == ".git") {
-      continue; 
+  try {
+    for (const auto& entry : fs::directory_iterator(dir)) {
+      std::string filename = entry.path().filename().string(); 
+
+      if (filename[0] == '.' || filename == ".git") {
+        continue; 
+      }
+
+      // we wanna recurse directories and subdirectories but ignore things like symlinks.. 
+      if (entry.is_directory()) {
+        // recurse subdirectories 
+        auto subdir_files = listFilesRecursively(entry.path()); 
+        files.insert(files.end(), subdir_files.begin(), subdir_files.end()); 
+      } else if (entry.is_regular_file()) {
+        fs::path relative = fs::relative(entry.path(), pathname); 
+        files.push_back(relative);
+      }
     }
-    
-    // Add the files back to the list 
-    files.push_back(filename); 
+  } catch (const fs::filesystem_error& e) {
+    // just do nothing when we can't read a directory; no need to crash. 
   }
 
-  // Git sorts the files alphabetically
-  // naturally we do the same.
+  return files; 
+}
+
+
+
+std::vector<std::string> Workspace::listFiles() const {
+  
+  auto file_paths = listFilesRecursively(pathname);
+
+  std::vector<std::string> files; 
+  // probably decent idea to make the vector have a pre-allocated size.
+  // since we already know how many items are in the directory already. 
+  files.reserve(file_paths.size()); 
+
+  for (const auto& path : file_paths) {
+    files.push_back(path.string()); 
+  }
+
+  // git sorts the files alphabetically, meaning we also have to. 
   std::sort(files.begin(), files.end()); 
 
   return files; 

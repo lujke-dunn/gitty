@@ -15,7 +15,7 @@ class Blob : public GitObject {
     std::string getContent() const override; 
     
     std::string toString() const;
-    std::string& getData() const; 
+    const std::string& getData() const; 
 }; 
 
 

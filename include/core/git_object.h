@@ -20,6 +20,6 @@ class GitObject {
 
     std::string getOid() const { return oid; }
     void setOid(const std::string& id) { oid = id; }
-}
+};
 
 #endif

@@ -40,7 +40,7 @@ void Database::writeObject(const std::string& oid, const std::string& content) {
 
 void Database::store(GitObject& object) {
   // Formats: object <size>\0<content>
-  std::string content = object.getType() + " " + std::to_string(object.getData().length()) + '\0' + object.getData();
+  std::string content = object.getType() + " " + std::to_string(object.getContent().length()) + '\0' + object.getContent();
 
   std::string oid = hashContent(content); 
   object.setOid(oid); 
