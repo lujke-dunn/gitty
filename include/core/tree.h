@@ -3,25 +3,38 @@
 
 #include "core/git_object.h"
 #include "core/entry.h"
+#include "core/blob.h"
+#include <map>
 #include <vector> 
 #include <string>
+#include <functional> 
 
 
 class Tree : public GitObject {
   private: 
-    std::vector<Entry> entries; 
+    std::map<std::string, Entry> blobEntries; 
+
+    std::map<std::string, Tree*> childTrees;  
 
   public: 
-    explicit Tree(const std::vector<Entry>& treeEntries);
+
+    Tree() = default;
+    ~Tree(); 
 
     std::string getType() const override; 
 
     std::string getContent() const override;
+    
+    void addBlob(const Entry& entry); 
 
-    void addEntry(const Entry& entry); 
+    void addChildTree(const std::string& name, Tree* tree); 
 
-    const std::vector<Entry>& getEntries() const { return entries; }
+    Tree* getOrCreateChild(const std::string& name); 
 
+    void traverse(std::function<void(Tree*)> callback); 
+
+    bool isEmpty() const { return blobEntries.empty() && childTrees.empty(); }
+    
     std::string toString() const;
 }
 
