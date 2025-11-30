@@ -1,5 +1,5 @@
-#ifndef TREE_H 
-#define TREE_H
+#ifndef TREE_BUILDER_H 
+#define TREE_BUILDER_H
 
 #include "core/tree.h"
 #include "core/entry.h"

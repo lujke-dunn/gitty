@@ -14,6 +14,7 @@ Entry::Entry(const std::string& entryName, const std::string& entryOid, int entr
 // 120000 - Symbolic link (symlink) points to another directory or file   
 // octal numbers were probably chosen cause it maps well to unix permission bits like (rwx). 
 std::string Entry::modeString() const {
+  std::ostringstream oss;
   oss << std::oct << mode; 
   return oss.str(); 
 }
@@ -36,7 +37,7 @@ bool Entry::operator<(const Entry& other) const {
 std::string Entry::toString() const {
   std::ostringstream oss;
   oss << modeString() << " " 
-      << (isTree() ? "tree" ? "blob") << " " 
+      << (isTree() ? "tree" : "blob") << " " 
       << getOid() << "\t" << getName();
   return oss.str(); 
 }
