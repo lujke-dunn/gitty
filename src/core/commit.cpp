@@ -5,7 +5,7 @@ Commit::Commit(const std::string& tree, const std::string& parent, const Author&
   treeOid(tree), parentOid(parent), author(auth), committer(commit), message(msg) {}
 
 Commit::Commit(const std::string& tree, const std::string& parent, const Author& auth, const std::string& msg) : 
-  treeOid(tree), parentOid(parent), author(auth), committer(commit), message(msg) {}
+  treeOid(tree), parentOid(parent), author(auth), committer(auth), message(msg) {}
 
 std::string Commit::getType() const {
   return "commit"; 
@@ -21,7 +21,7 @@ std::string Commit::getContent() const {
 
   oss << "author " << author.toString() << "\n";
 
-  oss << "commiter " << commiter.toString() << "\n";
+  oss << "committer " << committer.toString() << "\n";
 
   oss << message;
 
@@ -37,7 +37,7 @@ std::string Commit::toString() const {
   }
 
   oss << "Author: " << author.toString() << "\n"; 
-  oss << "Commiter: " << commiter.toString() << "\n"; 
+  oss << "Commiter: " << committer.toString() << "\n"; 
   oss << "\n" << message;
   return oss.str(); 
 }

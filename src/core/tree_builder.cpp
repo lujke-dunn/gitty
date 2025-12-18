@@ -50,7 +50,7 @@ void TreeBuilder::addEntry(Tree* tree, const std::vector<std::string>& parents, 
     std::string firstParent = parents[0]; 
     std::string parentBasename = getBasename(firstParent); 
     
-    Tree* childTree = tree->getOrCreateChild(parentBasename); 
+    Tree* childTree = tree->getOrCreateChildTree(parentBasename); 
 
     std::vector<std::string> remainingParents(parents.begin() + 1, parents.end()); 
     addEntry(childTree, remainingParents, entry); 

@@ -25,7 +25,7 @@ void Database::writeObject(const std::string& oid, const std::string& content) {
   // Gits object paths typically look something along the lines of 
   // .git/objects/ab/cdef123... 
   fs::path object_path = pathname / oid.substr(0, 2) / oid.substr(2); 
-
+  fs::create_directories(object_path.parent_path());
   // the real Git uses zlib compression to compress content 
   uLongf compressed_size = compressBound(content.length()); 
   std::vector<unsigned char> compressed(compressed_size); 

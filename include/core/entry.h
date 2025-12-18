@@ -19,13 +19,13 @@ class Entry {
     const std::string& getOid()  const { return oid;  }
     const int getMode() const { return mode; }
 
-    bool isTree() const { return mode == 04000 }; 
+    bool isTree() const { return mode == 04000; } 
 
     std::string modeString() const; 
 
-    bool operator<(const Entry& other)> const; 
+    bool operator<(const Entry& other) const; 
 
     std::string toString() const; 
-}
+};
 
 #endif

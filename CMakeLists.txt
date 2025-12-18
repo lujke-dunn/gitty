@@ -8,10 +8,18 @@ add_executable(a_git_clone
   src/commands/command_factory.cpp
   src/commands/init_command.cpp
   src/commands/commit_command.cpp
+  src/commands/command_option.cpp
+  src/core/command.cpp
   src/core/git_object.cpp
   src/core/workspace.cpp
   src/core/blob.cpp 
   src/core/database.cpp
+  src/core/config.cpp
+  src/core/entry.cpp
+  src/core/tree.cpp
+  src/core/tree_builder.cpp
+  src/core/author.cpp
+  src/core/commit.cpp
 )
 
 target_include_directories(a_git_clone PRIVATE include)

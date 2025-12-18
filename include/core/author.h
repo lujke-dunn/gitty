@@ -10,6 +10,7 @@ class Author {
     std::string email;
     time_t timestamp;
 
+
   public:
     // for setting explicit timestamp
     Author(const std::string& authorName, const std::string& authorEmail, time_t authorTimestamp);
@@ -22,6 +23,6 @@ class Author {
     time_t getTimestamp() const { return timestamp; }
 
     std::string toString() const; 
-}
+};
 
 #endif

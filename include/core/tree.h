@@ -29,13 +29,13 @@ class Tree : public GitObject {
 
     void addChildTree(const std::string& name, Tree* tree); 
 
-    Tree* getOrCreateChild(const std::string& name); 
+    Tree* getOrCreateChildTree(const std::string& name); 
 
     void traverse(std::function<void(Tree*)> callback); 
 
     bool isEmpty() const { return blobEntries.empty() && childTrees.empty(); }
     
     std::string toString() const;
-}
+};
 
 #endif

@@ -1,4 +1,4 @@
-#include "entry.h"
+#include "../../include/core/entry.h"
 #include <sstream>
 #include <iomanip>
 

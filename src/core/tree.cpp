@@ -1,4 +1,4 @@
-#include "core/tree.h"
+#include "../../include/core/tree.h"
 #include <algorithm>
 #include <sstream> 
 
@@ -44,7 +44,7 @@ std::string Tree::getContent() const {
     content += '\0'; 
 
     std::string oid = entry.getOid(); 
-    for (size_t i = 0; i < oid.length; i += 2) {
+    for (size_t i = 0; i < oid.length(); i += 2) {
       std::string byteString = oid.substr(i, 2); 
       char byte = static_cast<char>(std::stoi(byteString, nullptr, 16));
       content += byte; 
@@ -55,7 +55,7 @@ std::string Tree::getContent() const {
 }
 
 void Tree::addBlob(const Entry& entry) {
-  blobEntries[entry.getName()] = entry;
+  blobEntries.insert({entry.getName(), entry});
 }
 
 
@@ -76,7 +76,7 @@ Tree* Tree::getOrCreateChildTree(const std::string& name) {
 
 void Tree::traverse(std::function<void(Tree*)> callback) {
   for (auto& pair : childTrees) {
-    pair.second->traverse(callback)
+    pair.second->traverse(callback);
   }
 
   callback(this); 
