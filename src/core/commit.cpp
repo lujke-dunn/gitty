@@ -22,8 +22,10 @@ std::string Commit::getContent() const {
   oss << "author " << author.toString() << "\n";
 
   oss << "committer " << committer.toString() << "\n";
+  
+  oss << "\n";
 
-  oss << message;
+  oss << message << "\n";
 
   return oss.str(); 
 }
@@ -38,6 +40,6 @@ std::string Commit::toString() const {
 
   oss << "Author: " << author.toString() << "\n"; 
   oss << "Commiter: " << committer.toString() << "\n"; 
-  oss << "\n" << message;
+  oss << "\n" << message << "\n";
   return oss.str(); 
 }

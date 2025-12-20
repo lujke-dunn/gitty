@@ -9,6 +9,7 @@
 #include "../../include/core/author.h"
 #include "../../include/core/commit.h"
 #include "../../include/core/config.h"
+#include "../../include/core/index.h"
 #include <iostream>
 #include <fstream>
 #include <filesystem>
@@ -144,25 +145,22 @@ int CommitCommand::execute() {
     return 1; 
   }
 
-  Workspace workspace(rootPath);
-  Database  database(dbPath);
+  Index index(gitPath); 
+  auto stagedEntries = index.getEntries(); 
+  
+  if (stagedEntries.empty()) {
+    std::cerr << "nothing to commit (use \"git add\" to track files)" << std::endl;
+    return 1; 
+  }
 
-  auto files = workspace.listFiles(); 
+  Database database(dbPath); 
   std::vector<Entry> entries; 
 
-  for (const auto& file : files) {
-    std::string data = workspace.readFile(file);
-    Blob blob(data); 
-    database.store(blob);
-
-    fs::path fullPath = rootPath / file; 
-    auto perms  = fs::status(fullPath).permissions(); 
-    mode_t mode = (perms & fs::perms::owner_exec) != fs::perms::none ? 0100755 : 0100644;
-
-    Entry entry(file, blob.getOid(), mode);
+  for (const auto& [path, indexEntry]: stagedEntries) {
+    Entry entry(indexEntry.path, indexEntry.oid, indexEntry.mode); 
     entries.push_back(entry); 
-
-    std::cout << " blob " << blob.getOid() << " " << file << std::endl;
+    
+    std::cout << "blob " << indexEntry.oid << " " << indexEntry.path << std::endl; 
   }
   
   TreeBuilder builder;
