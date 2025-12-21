@@ -9,6 +9,7 @@ add_executable(a_git_clone
   src/commands/init_command.cpp
   src/commands/commit_command.cpp
   src/commands/add_command.cpp
+  src/commands/remote_command.cpp
   src/commands/command_option.cpp
   src/core/command.cpp
   src/core/git_object.cpp
@@ -19,6 +20,7 @@ add_executable(a_git_clone
   src/core/entry.cpp
   src/core/tree.cpp
   src/core/tree_builder.cpp
+  src/core/remote.cpp
   src/core/author.cpp
   src/core/commit.cpp
   src/core/index.cpp

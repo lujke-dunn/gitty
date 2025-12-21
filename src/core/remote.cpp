@@ -43,11 +43,11 @@ std::string Remote::getServiceUrl(const std::string& service) const {
     // we remove the .git due to remotes having different formats for e.g. 
     // https://gh.com/user/repo.git or https:://gh.com/user/repo is also a valid format 
     // for simplicity sake we just remove it. 
-    if (baseUrl.length() > 4 && baseUrl.substr(baseUrl.length - 4) == ".git") {
-      baseUrl = baseUrl.substr(0, baseUrl.length - 4); 
+    if (baseUrl.length() > 4 && baseUrl.substr(baseUrl.length() - 4) == ".git") {
+      baseUrl = baseUrl.substr(0, baseUrl.length() - 4); 
     }
 
-    if (!baseUrl.empty() && baseUrl.back()("/")) {
+    if (!baseUrl.empty() && baseUrl.back() == ('/')) {
       baseUrl = baseUrl.substr(0, baseUrl.length() - 1); 
     }
 

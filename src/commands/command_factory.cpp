@@ -2,6 +2,7 @@
 #include "../../include/commands/init_command.h"
 #include "../../include/commands/commit_command.h"
 #include "../../include/commands/add_command.h"
+#include "../../include/commands/remote_command.h"
 
 #include <iostream> 
 #include <filesystem> 
@@ -28,7 +29,10 @@ void CommandFactory::initializeCommands() {
   registerCommand("add", [](const std::vector<std::string>& args) {
     return std::make_unique<AddCommand>();
   }); 
-
+  
+  registerCommand("remote", [](const std::vector<std::string>& args) {
+      return std::make_unique<RemoteCommand>(); 
+  });
 }
 
 std::unique_ptr<Command> CommandFactory::create(
