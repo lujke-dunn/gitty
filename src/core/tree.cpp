@@ -27,7 +27,7 @@ std::string Tree::getContent() const {
     
     // create an entry representing this subdirectory
     // mode 04000 = directory, oid points to child tree 
-    Entry treeEntry(name, childTree->getOid(), 04000); 
+    Entry treeEntry(name, childTree->getOid(), 040000);
     allEntries.push_back(treeEntry); 
   }
 
