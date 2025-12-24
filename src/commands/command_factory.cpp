@@ -3,6 +3,7 @@
 #include "../../include/commands/commit_command.h"
 #include "../../include/commands/add_command.h"
 #include "../../include/commands/remote_command.h"
+#include "../../include/commands/branch_command.h"
 #include "../../include/commands/push_command.h"
 
 #include <iostream> 
@@ -38,6 +39,10 @@ void CommandFactory::initializeCommands() {
   registerCommand("push", [](const std::vector<std::string>& args) {
       return std::make_unique<PushCommand>();
   });
+
+  registerCommand("branch", [](const std::vector<std::string>& args) {
+      return std::make_unique<BranchCommand>(); 
+  }); 
 }
 
 std::unique_ptr<Command> CommandFactory::create(

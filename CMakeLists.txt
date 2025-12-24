@@ -11,6 +11,7 @@ add_executable(a_git_clone
   src/commands/add_command.cpp
   src/commands/remote_command.cpp
   src/commands/push_command.cpp
+  src/commands/branch_command.cpp
   src/commands/command_option.cpp
   src/core/command.cpp
   src/core/git_object.cpp
