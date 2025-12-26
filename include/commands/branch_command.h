@@ -7,12 +7,9 @@ class BranchCommand : public Command {
   private:
     bool deleteFlag;
 
-    std::string getCurrentBranch(); 
-    std::string getHeadCommit(); 
-    void listBranches(); 
-    void createBranch(const std::string& name);
-    void deleteBranch(const std::string& name); 
-  public: 
+    void listBranches();
+
+  public:
     BranchCommand();
     int execute() override; 
 };

@@ -30,6 +30,10 @@ add_executable(a_git_clone
   src/core/object_walker.cpp
   src/core/pack_file.cpp
   src/core/git_protocol.cpp
+        include/core/refs.h
+        src/core/refs.cpp
+        include/commands/checkout_command.h
+        src/commands/checkout_command.cpp
 )
 
 target_include_directories(a_git_clone PRIVATE include)
