@@ -19,7 +19,7 @@ class Entry {
     const std::string& getOid()  const { return oid;  }
     const int getMode() const { return mode; }
 
-    bool isTree() const { return mode == 04000; } 
+    bool isTree() const { return mode == 040000; }
 
     std::string modeString() const; 
 

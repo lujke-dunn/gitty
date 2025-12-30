@@ -18,7 +18,7 @@ int main(int argc, char* argv[]) {
   auto command = CommandFactory::create(command_name, args); 
 
   if (!command) {
-    std::cerr << "jit: '" << command_name << "' is not a jit command." << std::endl;
+    std::cerr << "gitty: '" << command_name << "' is not a gitty command." << std::endl;
     return 1; 
   }
 

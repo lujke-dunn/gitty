@@ -5,10 +5,13 @@
 #include "../../include/commands/remote_command.h"
 #include "../../include/commands/branch_command.h"
 #include "../../include/commands/checkout_command.h"
+#include "../../include/commands/log_command.h"
+#include "../../include/commands/status_command.h"
+#include "../../include/commands/diff_command.h"
 #include "../../include/commands/push_command.h"
 
 #include <iostream> 
-#include <filesystem> 
+#include <filesystem>
 
 namespace fs = std::filesystem;
 
@@ -47,6 +50,18 @@ void CommandFactory::initializeCommands() {
 
   registerCommand("checkout", [](const std::vector<std::string>& args) {
     return std::make_unique<CheckoutCommand>();
+  });
+
+  registerCommand("log", [](const std::vector<std::string>& args) {
+    return std::make_unique<LogCommand>();
+  });
+
+  registerCommand("status", [](const std::vector<std::string>& args) {
+    return std::make_unique<StatusCommand>();
+  });
+
+  registerCommand("diff", [](const std::vector<std::string>& args) {
+    return std::make_unique<DiffCommand>();
   });
 }
 

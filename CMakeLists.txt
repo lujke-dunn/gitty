@@ -34,6 +34,12 @@ add_executable(a_git_clone
         src/core/refs.cpp
         include/commands/checkout_command.h
         src/commands/checkout_command.cpp
+        include/commands/log_command.h
+        src/commands/log_command.cpp
+        include/commands/status_command.h
+        src/commands/status_command.cpp
+        include/commands/diff_command.h
+        src/commands/diff_command.cpp
 )
 
 target_include_directories(a_git_clone PRIVATE include)
