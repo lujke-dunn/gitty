@@ -2,8 +2,11 @@
 #define GIT_OBJECT_H 
 
 #include <string>
-#include <memory> 
 
+/**
+ * Abstract base class for all git objects (blobs, trees, commits, tags).
+ * subclasses must implemnt getType() and getContent().
+ */
 class GitObject {
   protected: 
     std::string oid;
@@ -14,9 +17,6 @@ class GitObject {
     virtual std::string getType() const = 0; 
 
     virtual std::string getContent() const = 0; 
-
-
-    std::string serialize() const; 
 
     std::string getOid() const { return oid; }
     void setOid(const std::string& id) { oid = id; }

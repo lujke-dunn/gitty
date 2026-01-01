@@ -70,13 +70,6 @@ std::string Config::get(const std::string& section, const std::string& key) {
   return keyIt->second;
 }
 
-bool Config::has(const std::string& section, const std::string& key) {
-  auto sectionIt = data.find(section); 
-  if (sectionIt == data.end()) {
-    return false;
-  }
-}
-
 void Config::set(const std::string& section, const std::string& key, const std::string& value) {
   data[section][key] = value;
 }

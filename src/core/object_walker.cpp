@@ -105,14 +105,14 @@ void ObjectWalker::walkTree(const std::string& treeOid, std::set<std::string>& o
   }
 }
 
-std::set<std::string> ObjectWalker::collectObjects(const std::string& want, const std::set<std::string>& have) {
+std::set<std::string> ObjectWalker::collectObjects(const std::string& have, const std::set<std::string>& want) {
   // ensure that visited list is clear so when we call this we get correct output 
   visited.clear(); 
   std::set<std::string> objects; 
 
-  walkCommit(want, objects);
+  walkCommit(have, objects);
 
-  if (!have.empty()) {
+  if (!want.empty()) {
     std::cerr << "this does not work only works for fresh repos my friends" << std::endl; 
   }
 
