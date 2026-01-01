@@ -10,10 +10,6 @@ std::string Blob::getContent() const {
   return data;
 }
 
-std::string Blob::toString() const {
-  return data; 
-}
-
 const std::string& Blob::getData() const {
   return data; 
 }

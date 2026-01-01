@@ -6,13 +6,7 @@ Entry::Entry(const std::string& entryName, const std::string& entryOid, int entr
 
 
 
-// There are a bunch of different octal numbers which git uses to represent file types and permissions
-// 100644 - Regular file with read / write permissions for the owner, and read-only for others (think a standard non-executable file)
-// 100755 - Executable file which has 3 extra bits set which allows for groups to read and execute and owners to read, write, and set 
-// e.g. file types include (.exe, .sh, etc.)
-// 040000 - Directories (trees) points to another tree object containing more entries like (src/, includes/, etc.)
-// 120000 - Symbolic link (symlink) points to another directory or file   
-// octal numbers were probably chosen cause it maps well to unix permission bits like (rwx). 
+
 std::string Entry::modeString() const {
   std::ostringstream oss;
   oss << std::oct << mode; 

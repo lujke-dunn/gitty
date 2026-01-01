@@ -14,8 +14,7 @@ add_executable(a_git_clone
   src/commands/branch_command.cpp
   src/commands/command_option.cpp
   src/core/command.cpp
-  src/core/git_object.cpp
-  src/core/workspace.cpp
+        src/core/workspace.cpp
   src/core/blob.cpp 
   src/core/database.cpp
   src/core/config.cpp
