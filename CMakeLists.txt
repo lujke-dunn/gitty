@@ -49,7 +49,9 @@ target_link_libraries(gitty_core
 )
 
 # Main executable
-add_executable(a_git_clone src/main.cpp)
+add_executable(a_git_clone src/main.cpp
+        tests/unit/index_test.cpp
+)
 target_link_libraries(a_git_clone gitty_core)
 
 # Testing
