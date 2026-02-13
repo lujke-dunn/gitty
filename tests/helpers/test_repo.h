@@ -9,7 +9,7 @@ public:
     TestRepo();
     ~TestRepo();
 
-    std::string getPath();
+    std::string getPath() const;
     void writeFile(const std::string& path, const std::string& content);
     std::string readFile(const std::string& path);
 };

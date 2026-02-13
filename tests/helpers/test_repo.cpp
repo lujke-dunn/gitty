@@ -34,7 +34,7 @@ TestRepo::~TestRepo() {
     }
 }
 
-std::string TestRepo::getPath() {
+std::string TestRepo::getPath() const {
     return tempPath;
 }
 
