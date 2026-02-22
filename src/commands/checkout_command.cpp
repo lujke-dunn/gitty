@@ -96,6 +96,7 @@ void CheckoutCommand::updateWorkspace(const std::string& commitSha) {
 
     Workspace workspace(rootPath);
 
+    // Write files from the target commit
     for (const auto& [path, entry] : entries) {
         std::string blobData = ObjectUtils::readObject(gitPath / "objects", entry.getOid());
         auto [type, content] = ObjectUtils::parseObject(blobData);
@@ -107,6 +108,21 @@ void CheckoutCommand::updateWorkspace(const std::string& commitSha) {
 
         std::ofstream file(filePath, std::ios::binary);
         file.write(content.c_str(), content.length());
+    }
+
+    // Remove workspace files that are not in the target commit's tree
+    for (const auto& wsFile : workspace.listFiles()) {
+        if (entries.find(wsFile) == entries.end()) {
+            fs::path filePath = rootPath / wsFile;
+            fs::remove(filePath);
+
+            // Clean up any empty parent directories left behind
+            fs::path parent = filePath.parent_path();
+            while (parent != rootPath && fs::is_directory(parent) && fs::is_empty(parent)) {
+                fs::remove(parent);
+                parent = parent.parent_path();
+            }
+        }
     }
 }
 

@@ -336,6 +336,12 @@ void DiffCommand::printUnifiedDiff(
         return;
     }
 
+    bool hasChanges = std::any_of(edits.begin(), edits.end(),
+        [](const Edit& e) { return e.type != Edit::EQUAL; });
+    if (!hasChanges) {
+        return;
+    }
+
     std::cout << "--- a/" << indexFileName << std::endl;
     std::cout << "+++ b/" << workspaceFileName << std::endl;
 
