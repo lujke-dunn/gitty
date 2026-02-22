@@ -39,6 +39,7 @@ add_library(gitty_core STATIC
         src/commands/log_command.cpp
         src/commands/status_command.cpp
         src/commands/diff_command.cpp
+        tests/unit/commit_test.cpp
 )
 target_include_directories(gitty_core PUBLIC include)
 target_link_libraries(gitty_core
@@ -48,11 +49,6 @@ target_link_libraries(gitty_core
         CURL::libcurl
 )
 
-# Main executable
-add_executable(a_git_clone src/main.cpp
-        tests/unit/index_test.cpp
-)
-target_link_libraries(a_git_clone gitty_core)
 
 # Testing
 enable_testing()
@@ -72,10 +68,24 @@ add_executable(gitty_tests
         tests/helpers/test_repo.cpp
         tests/integration/init_test.cpp
         tests/integration/add_test.cpp
+        tests/unit/index_test.cpp
+        tests/unit/commit_test.cpp
+        tests/integration/commit_command_test.cpp
+        tests/unit/blob_test.cpp
+        tests/unit/author_test.cpp
+        tests/unit/entry_test.cpp
+        tests/unit/tree_test.cpp
+        tests/unit/database_test.cpp
+        tests/integration/status_test.cpp
+        tests/integration/log_test.cpp
+        tests/integration/branch_test.cpp
+        tests/integration/checkout_test.cpp
+        tests/integration/diff_test.cpp
 )
 target_link_libraries(gitty_tests
         gitty_core
         GTest::gtest_main
+        OpenSSL::Crypto
 )
 target_include_directories(gitty_tests PRIVATE include tests/helpers)
 

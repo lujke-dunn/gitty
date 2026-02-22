@@ -455,6 +455,45 @@ TEST_F(AddCommandTest, AddNonExistentFile) {
     EXPECT_EQ(countObjects(), 0);
 }
 
+/**
+ * Staging a file then deleting it from disk and running add <path> should
+ * remove the entry from the index (stage the deletion).
+ */
+TEST_F(AddCommandTest, AddDeletedTrackedFileStagesDeletion) {
+    repo->writeFile("gone.txt", "content");
+    runAdd({"gone.txt"});
+    ASSERT_TRUE(loadIndex().isStaged("gone.txt"));
+
+    fs::remove(fs::path(repo->getPath()) / "gone.txt");
+    ASSERT_EQ(runAdd({"gone.txt"}), 0);
+
+    EXPECT_FALSE(loadIndex().isStaged("gone.txt"));
+}
+
+/**
+ * add . should stage the deletion of a tracked file that was removed from disk.
+ */
+TEST_F(AddCommandTest, AddDotStagesDeletionOfRemovedTrackedFile) {
+    repo->writeFile("will_be_deleted.txt", "bye");
+    repo->writeFile("stays.txt", "hello");
+    runAdd({"will_be_deleted.txt", "stays.txt"});
+
+    fs::remove(fs::path(repo->getPath()) / "will_be_deleted.txt");
+    runAdd({"."});
+
+    const auto index = loadIndex();
+    EXPECT_FALSE(index.isStaged("will_be_deleted.txt")) << "Deleted file should be removed from index";
+    EXPECT_TRUE(index.isStaged("stays.txt"));
+}
+
+/**
+ * add <path> on a file that never existed and is not tracked should still
+ * return non-zero (not silently succeed).
+ */
+TEST_F(AddCommandTest, AddNeverExistedUntrackedFileReturnsNonZero) {
+    EXPECT_NE(runAdd({"never_existed.txt"}), 0);
+}
+
 TEST_F(AddCommandTest, AddWithNoArguments) {
     repo->writeFile("file.txt", "file");
     int result = runAdd({});
